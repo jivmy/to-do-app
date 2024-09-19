@@ -3,12 +3,14 @@ import { useState } from 'react';
 const Task = () => {
 
     const [task, setTask] = useState<string>('Hello')
-    const [displayTask, setDisplayTask] = useState<string>('')
+    const [tasks, setTasks] = useState<string[]>([])
 
     const handleDisplayTask = () => {
-      setDisplayTask(task)
+      if (task.trim() !== '') {
+      setTasks([... tasks, task])
       setTask('')
     }
+  }
     
     return  (
         <div>
@@ -20,7 +22,10 @@ const Task = () => {
           />
           <button onClick={handleDisplayTask}>Add</button>
 
-          <h1>{displayTask}</h1>
+          <ul>{tasks.map((t, index) => (
+            <li key={index}>{t}</li>
+          ))}
+          </ul>
         </div>
       );
 }
